@@ -13,9 +13,16 @@ export class BilletAPI {
   static async acheterBillet(concertId: string, userId: string): Promise<Billet> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const newBillet = new Billet(`b${Date.now()}`, concertId, userId, false);
+        const newBillet = new Billet(
+          `b${Date.now()}`, 
+          concertId, 
+          userId, 
+          false, 
+          `https://picsum.photos/300/200?random=${Math.floor(Math.random() * 100)}` // Image aléatoire
+        );
         resolve(newBillet);
       }, 1000);
     });
   }
+  
 }

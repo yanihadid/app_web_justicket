@@ -4,21 +4,24 @@
       "title": "Coldplay - Music of the Spheres",
       "date": "2025-07-15",
       "location": "Zénith de Lille",
-      "maxSeats": 5000
+      "maxSeats": 5000,
+      "image": "https://picsum.photos/400/250?random=1"
     },
     {
       "id": "2",
       "title": "Ed Sheeran - +-=÷× Tour",
       "date": "2025-08-10",
       "location": "Stade de France",
-      "maxSeats": 80000
+      "maxSeats": 80000,
+      "image": "https://picsum.photos/400/250?random=2"
     },
     {
       "id": "3",
       "title": "Dua Lipa - Future Nostalgia",
       "date": "2025-09-05",
       "location": "Accor Arena, Paris",
-      "maxSeats": 20000
+      "maxSeats": 20000,
+      "image": "https://picsum.photos/400/250?random=3"
     }
   ]
   

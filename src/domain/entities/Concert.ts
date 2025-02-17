@@ -4,7 +4,8 @@ export class Concert {
       public title: string,
       public date: string,
       public location: string,
-      public maxSeats: number
+      public maxSeats: number,
+      public image: string 
     ) {}
   }
   
