@@ -1,0 +1,15 @@
+[
+    {
+      "id": "b1",
+      "concertId": "1",
+      "acheteurId": "user123",
+      "estUtilise": false
+    },
+    {
+      "id": "b2",
+      "concertId": "2",
+      "acheteurId": "user456",
+      "estUtilise": true
+    }
+  ]
+  
