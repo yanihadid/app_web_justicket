@@ -5,6 +5,7 @@ import Navbar from "./presentation/components/Navbar";
 import HomePage from "./presentation/pages/HomePage";
 import SignUp from "./presentation/pages/SignUpPage";
 import Login from "./presentation/pages/LoginPage";
+import Footer from "./presentation/components/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
