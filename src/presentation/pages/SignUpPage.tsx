@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, InputAdornment } from '@mui/material';
-import { FaUser, FaEnvelope, FaLock, FaCalendar } from 'react-icons/fa';
+import { AccountCircle, Email, Lock, CalendarToday } from '@mui/icons-material';
 
 const SignUpPage: React.FC = () => {
   const [firstName, setFirstName] = useState('');
@@ -44,7 +44,7 @@ const SignUpPage: React.FC = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <FaUser />
+                  <AccountCircle />
                 </InputAdornment>
               ),
             }}
@@ -60,7 +60,7 @@ const SignUpPage: React.FC = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <FaUser />
+                  <AccountCircle />
                 </InputAdornment>
               ),
             }}
@@ -77,7 +77,7 @@ const SignUpPage: React.FC = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <FaCalendar />
+                  <CalendarToday />
                 </InputAdornment>
               ),
             }}
@@ -93,7 +93,7 @@ const SignUpPage: React.FC = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <FaEnvelope />
+                  <Email />
                 </InputAdornment>
               ),
             }}
@@ -109,7 +109,7 @@ const SignUpPage: React.FC = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <FaLock />
+                  <Lock />
                 </InputAdornment>
               ),
             }}
@@ -125,7 +125,7 @@ const SignUpPage: React.FC = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <FaLock />
+                  <Lock />
                 </InputAdornment>
               ),
             }}

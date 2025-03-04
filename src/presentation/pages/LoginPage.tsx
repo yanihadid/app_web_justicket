@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, InputAdornment } from '@mui/material';
+import { Email, Lock } from '@mui/icons-material';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -36,6 +37,13 @@ const LoginPage: React.FC = () => {
             required
             fullWidth
             margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Email />
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             label="Password"
@@ -45,6 +53,13 @@ const LoginPage: React.FC = () => {
             required
             fullWidth
             margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock />
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             type="submit"
