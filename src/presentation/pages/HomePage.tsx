@@ -8,20 +8,22 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <Box 
-      sx={{
-        backgroundImage: "url('/background.jpg')", // ✅ Remplace avec une image locale ou externe
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        color: "white",
-        px: 3,
-      }}
+<Box 
+  sx={{
+    backgroundImage: "url('/background.jpg')",  
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat", // Ajout de cette ligne
+    backgroundAttachment: "fixed", // Ajout de cette ligne
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    color: "white",
+    px: 3,
+  }}
     >
       {/* ✅ Utilisation de Navbar au lieu d'AppBar */}
       <Navbar />
