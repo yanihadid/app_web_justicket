@@ -8,6 +8,7 @@ import HomePage from "./presentation/pages/HomePage";
 import SignUp from "./presentation/pages/SignUpPage";
 import Login from "./presentation/pages/LoginPage";
 import Footer from "./presentation/components/Footer";
+import './app.css'; 
 
 function App() {
   return (
@@ -17,10 +18,10 @@ function App() {
         <Box sx={{ flex: '1 0 auto' }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/concerts" element={<ConcertList />} />
-            <Route path="/billets" element={<MesBillets />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/concerts" element={<div className="background"><ConcertList /></div>} />
+            <Route path="/billets" element={<div className="background"><MesBillets /></div>} />
+            <Route path="/login" element={<div className="background"><Login /></div>} />
+            <Route path="/signup" element={<div className="background"><SignUp /></div>} />
           </Routes>
         </Box>
         <Footer />

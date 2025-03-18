@@ -6,7 +6,7 @@ export class BilletAPI {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(billetsData.filter((billet) => billet.acheteurId === userId));
-      }, 1000); // Simule un délai API
+      }, 1000);
     });
   }
 
@@ -18,7 +18,7 @@ export class BilletAPI {
           concertId, 
           userId, 
           false, 
-          `https://picsum.photos/300/200?random=${Math.floor(Math.random() * 100)}` // Image aléatoire
+          `https://picsum.photos/300/200?random=${Math.floor(Math.random() * 100)}` 
         );
         resolve(newBillet);
       }, 1000);

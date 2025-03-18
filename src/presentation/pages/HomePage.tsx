@@ -30,7 +30,6 @@ const HomePage = () => {
           outline: "5px solid black", 
         }}
       >
-        <Navbar />
 
         {/* Contenu principal */}
         <Container sx={{ mt: 10, textAlign: "center" }}>
@@ -53,27 +52,38 @@ const HomePage = () => {
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 0.5, delay: 0.3 }}
           >
+          <Box 
+            sx={{
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems: "center", 
+              gap: 2, 
+              maxWidth: "600px", 
+              width: "100%", 
+              margin: "auto"
+            }}
+          >
             <TextField 
               variant="outlined"
               placeholder="Recherchez un artiste, un concert, un lieu..."
-              fullWidth
               sx={{
                 backgroundColor: "white",
                 borderRadius: 2,
-                maxWidth: "500px",
                 input: { color: "black" },
-                mb: 2
+                flexGrow: 1 
               }}
             />
             <Button 
               variant="contained" 
               color="primary" 
               size="large"
-              sx={{ borderRadius: 2 }}
+              sx={{ borderRadius: 2, whiteSpace: "nowrap" }} 
               onClick={() => navigate("/concerts")}
             >
               Rechercher
             </Button>
+          </Box>
+
           </motion.div>
         </Container>
       </Box>
