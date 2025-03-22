@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, InputAdornment } from '@mui/material';
-import { AccountCircle, Email, Lock, CalendarToday } from '@mui/icons-material';
+import { AccountCircle, Email, Lock } from '@mui/icons-material';
+import axios from 'axios';
+import { AuthService } from '../../application/services/AuthService';
 
 const SignUpPage: React.FC = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const handleSignUp = (event: React.FormEvent) => {
+  const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle sign-up logic here
+    try {
+      const response = await AuthService.register(name, email, password);
+      console.log('User registered successfully:', response.data);
+      alert("Inscription réussie !");
+    } catch (error) {
+      console.error('Error during sign-up:', error);
+      alert("Erreur lors de l'inscription.");
+    }
   };
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
-      <Box 
+      <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -34,10 +39,10 @@ const SignUpPage: React.FC = () => {
         </Typography>
         <form onSubmit={handleSignUp} style={{ width: '100%' }}>
           <TextField
-            label="First Name"
+            label="Full Name"
             type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
             fullWidth
             margin="normal"
@@ -45,39 +50,6 @@ const SignUpPage: React.FC = () => {
               startAdornment: (
                 <InputAdornment position="start">
                   <AccountCircle />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Last Name"
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-            fullWidth
-            margin="normal"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Birth Date"
-            type="date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            required
-            fullWidth
-            margin="normal"
-            InputLabelProps={{ shrink: true }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CalendarToday />
                 </InputAdornment>
               ),
             }}
@@ -103,22 +75,6 @@ const SignUpPage: React.FC = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-            fullWidth
-            margin="normal"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
             required
             fullWidth
             margin="normal"
