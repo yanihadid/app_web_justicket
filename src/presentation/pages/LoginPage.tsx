@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, InputAdornment } from '@mui/material';
 import { Email, Lock } from '@mui/icons-material';
+import { AuthService } from '../../application/services/AuthService';
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Handle login logic here
-  };
+  const handleLogin = async (event: React.FormEvent) => {
+      event.preventDefault();
+      try {
+        const response = await AuthService.login(email, password);
+        console.log("Connexion réussie. Token :", response.token);
+        localStorage.setItem("token", response.token);
+        
+        localStorage.setItem("token", response.token);
+        alert("Connexion réussie !");
+        navigate('/');
+      } catch (error: any) {
+        console.error("Erreur de connexion :", error.response?.data || error.message);
+        alert("Email ou mot de passe incorrect.");
+      }
+    };
 
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
