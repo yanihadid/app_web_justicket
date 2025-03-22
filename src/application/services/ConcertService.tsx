@@ -10,6 +10,7 @@ export class ConcertService {
     place: string;
     concert_date: Date;
     total_seats: number;
+    image: string;
   }) {
     return await ConcertAPI.createConcert(data);
   }

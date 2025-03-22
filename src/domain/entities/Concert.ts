@@ -1,11 +1,13 @@
 export class Concert {
-    constructor(
-      public id: string,
-      public title: string,
-      public date: string,
-      public location: string,
-      public maxSeats: number,
-      public image: string 
-    ) {}
-  }
-  
+  constructor(
+    public id: string,
+    public title: string,
+    public place: string,
+    public image: string,
+    public concertDate: string,
+    public totalSeats: number,
+    public availableSeats: number,
+    public canceled: boolean,
+    public createdAt: string
+  ) {}
+}

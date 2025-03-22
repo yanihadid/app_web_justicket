@@ -13,13 +13,14 @@ const ConcertList = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
 
     const fetchConcerts = async () => {
       try {
         const data = await ConcertService.getAllConcerts();
+        const filteredConcerts = data.filter((concert) => !concert.canceled); 
         if (isMounted) {
-          setConcerts(data);
+          setConcerts(filteredConcerts);
           setLoading(false);
         }
       } catch (err) {
@@ -32,19 +33,21 @@ const ConcertList = () => {
 
     fetchConcerts();
 
-    return () => { isMounted = false }; 
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
     <Container sx={{ py: 4 }}>
-    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-      <Typography variant="h4" gutterBottom textAlign="center">
-        🎵 Liste des Concerts
-      </Typography>
-      <Button variant="contained" component={Link} to="/concerts/new">
-        Ajouter un concert
-      </Button>
-    </Box>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+        <Typography variant="h4" gutterBottom textAlign="center">
+          🎵 Liste des Concerts
+        </Typography>
+        <Button variant="contained" component={Link} to="/concerts/new">
+          Ajouter un concert
+        </Button>
+      </Box>
 
       {loading && (
         <Box display="flex" justifyContent="center" mt={4}>
@@ -67,13 +70,13 @@ const ConcertList = () => {
       <Grid container spacing={3} mt={2}>
         {concerts.map((concert) => (
           <Grid item xs={12} sm={6} md={4} key={concert.id}>
-            <Card 
-              sx={{ 
-                maxWidth: 345, 
-                borderRadius: 2, 
-                boxShadow: 3, 
+            <Card
+              sx={{
+                maxWidth: 345,
+                borderRadius: 2,
+                boxShadow: 3,
                 transition: "transform 0.3s ease-in-out",
-                "&:hover": { transform: "scale(1.05)" }
+                "&:hover": { transform: "scale(1.05)" },
               }}
             >
               <CardMedia
@@ -87,11 +90,11 @@ const ConcertList = () => {
                   {concert.title}
                 </Typography>
                 <Typography color="text.secondary">
-                  {concert.date} - {concert.location}
+                  {new Date(concert.concertDate).toLocaleDateString()} - {concert.place}
                 </Typography>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
+                <Button
+                  variant="contained"
+                  color="primary"
                   fullWidth
                   sx={{ marginTop: 2, borderRadius: 2 }}
                 >

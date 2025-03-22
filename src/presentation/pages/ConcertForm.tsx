@@ -8,6 +8,7 @@ const ConcertForm = () => {
   const [place, setPlace] = useState("");
   const [concertDate, setConcertDate] = useState("");
   const [totalSeats, setTotalSeats] = useState(0);
+  const [image, setImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ const ConcertForm = () => {
         place,
         concert_date: new Date(concertDate),
         total_seats: totalSeats,
+        image, 
       });
 
       alert("Concert ajouté avec succès !");
