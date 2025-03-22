@@ -9,6 +9,7 @@ import SignUp from "./presentation/pages/SignUpPage";
 import Login from "./presentation/pages/LoginPage";
 import Footer from "./presentation/components/Footer";
 import './app.css'; 
+import ConcertForm from './presentation/pages/ConcertForm';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/billets" element={<div className="background"><MesBillets /></div>} />
             <Route path="/login" element={<div className="background"><Login /></div>} />
             <Route path="/signup" element={<div className="background"><SignUp /></div>} />
+            <Route path="/concerts/new" element={<ConcertForm />} />
           </Routes>
         </Box>
         <Footer />

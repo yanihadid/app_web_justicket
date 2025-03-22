@@ -5,6 +5,7 @@ import {
   Card, CardContent, Typography, Button, Grid, CardMedia, 
   CircularProgress, Container, Box 
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ConcertList = () => {
   const [concerts, setConcerts] = useState<Concert[]>([]);
@@ -36,9 +37,14 @@ const ConcertList = () => {
 
   return (
     <Container sx={{ py: 4 }}>
+    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
       <Typography variant="h4" gutterBottom textAlign="center">
         🎵 Liste des Concerts
       </Typography>
+      <Button variant="contained" component={Link} to="/concerts/new">
+        Ajouter un concert
+      </Button>
+    </Box>
 
       {loading && (
         <Box display="flex" justifyContent="center" mt={4}>
