@@ -31,5 +31,9 @@ export class ConcertAPI {
   
     return await axios.post(`${API_BASE_URL}/concert/add?${params.toString()}`);
   }
+  static async getConcertById(id: string): Promise<Concert> {
+    const response = await axios.get(`${API_BASE_URL}/concert/${id}`);
+    return response.data;
+  }
   
 }

@@ -1,29 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { Billet } from "../../domain/entities/Billet";
-import billetsData from "../../fake-data/billets.json";
+import { Concert } from "../../domain/entities/Concert";
+import { BilletService } from "../../application/services/BilletService";
+import { ConcertService } from "../../application/services/ConcertService";
 import {
   Card, CardContent, Typography, Grid, Box,
   CircularProgress, Chip, Button, Container
 } from "@mui/material";
 
+interface BilletAvecConcert extends Billet {
+  concertName: string;
+  concertDate: string;
+  concertLocation: string;
+}
 const MesBillets = () => {
-  const [billets, setBillets] = useState<Billet[]>([]);
+  const [billets, setBillets] = useState<BilletAvecConcert[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const userId = "user123"; // Simulé pour filtrer les billets appartenant à cet utilisateur
 
   useEffect(() => {
     let isMounted = true;
     const fetchBillets = async () => {
       try {
-        // Simuler un chargement avec des données locales
-        const data: Billet[] = (billetsData as any[]).map((b) => ({
-            ...b,
-            createdAt: new Date(b.createdAt)
-          })).filter((b) => b.ownerId === userId);
+        const userId = sessionStorage.getItem("userId");
+        if (!userId) throw new Error("Utilisateur non connecté");
+        const billetsRaw = await BilletService.getBilletsByUser(userId);
+        const billetsEnrichis = await Promise.all(
+          billetsRaw.map(async (billet) => {
+            try {
+              const concert: Concert = await ConcertService.getConcertById(billet.concertId);
+              return {
+                ...billet,
+                concertName: concert.title,
+                concertDate: concert.concertDate,
+                concertLocation: concert.place,
+              };
+            } catch {
+              return {
+                ...billet,
+                concertName: "Concert inconnu",
+                concertDate: "",
+                concertLocation: "Lieu inconnu",
+              };
+            }
+          })
+        );
+
         if (isMounted) {
-          setBillets(data);
+          setBillets(billetsEnrichis);
           setLoading(false);
         }
       } catch (err) {
@@ -77,22 +101,28 @@ const MesBillets = () => {
               "&:hover": { transform: "scale(1.05)" }
             }}>
               <CardContent>
-                <Typography variant="h6" fontWeight="bold">
-                  Concert  {billet.concertId}
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                  {billet.concertName}
                 </Typography>
-                <Typography variant="h6" fontWeight="bold">
-                  {new Date(billet.createdAt).toLocaleDateString()} - Lille
+                <Typography variant="body1" gutterBottom>
+                 {new Date(billet.concertDate).toLocaleDateString()} - {billet.concertLocation}
                 </Typography>
-                {/* <Typography variant="body1">
-                  🎵 Date  : {billet.concertId}
-                </Typography> 
-                Pour le future je vais afficher le titre du concert ensuite le lieu avec la date du cocert et ensuite la date d'achat*/} 
                 <Typography variant="body2">
-                  🕒 Acheté le : {new Date(billet.createdAt).toLocaleDateString()}
+                 Acheté le : {new Date(billet.createdAt).toLocaleDateString()}
                 </Typography>
                 <Chip
-                  label={billet.used ? "Utilisé" : "Non utilisé"}
-                  color={billet.used ? "success" : "warning"}
+                  label={
+                    billet.used ? "Utilisé" :
+                    billet.repayed ? "Remboursé" :
+                    billet.canceled ? "Annulé" :
+                    billet.expired ? "Expiré" :
+                    "Valide"
+                  }
+                  color={
+                    billet.used ? "success" :
+                    billet.repayed || billet.canceled || billet.expired ? "error" :
+                    "warning"
+                  }
                   sx={{ mt: 2 }}
                 />
                 <Button

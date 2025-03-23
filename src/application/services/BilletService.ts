@@ -5,4 +5,7 @@ export class BilletService {
   static async acheterBillet(concertId: string, userId: string): Promise<Billet> {
     return await BilletAPI.acheterBillet(concertId, userId);
   }
+  static async getBilletsByUser(userId: string): Promise<Billet[]> {
+    return await BilletAPI.getBilletsByUser(userId);
+  }  
 }

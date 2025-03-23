@@ -19,4 +19,8 @@ export class BilletAPI {
 
     return response.data;
   }
+  static async getBilletsByUser(userId: string): Promise<Billet[]> {
+    const response = await axios.get(`${API_BASE_URL}/tickets/user/${userId}`);
+    return response.data;
+  }  
 }

@@ -14,4 +14,7 @@ export class ConcertService {
   }) {
     return await ConcertAPI.createConcert(data);
   }
+  static async getConcertById(id: string): Promise<Concert> {
+    return ConcertAPI.getConcertById(id);
+  }
 }

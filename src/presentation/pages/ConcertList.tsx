@@ -130,6 +130,9 @@ const ConcertList = () => {
                 <Typography color="text.secondary">
                   {new Date(concert.concertDate).toLocaleDateString()} - {concert.place}
                 </Typography>
+                <Typography color="text.secondary">
+                  {concert.totalSeats} places 
+                </Typography>
                 {isLoggedIn && (
                 <Button
                   variant="contained"
