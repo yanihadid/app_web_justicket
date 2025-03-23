@@ -8,6 +8,8 @@ import {
 import { Link } from "react-router-dom";
 import { BilletService } from "../../application/services/BilletService";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { Billet } from "../../domain/entities/Billet";
 
 function getUserRoleFromToken(): string | null {
   const token = sessionStorage.getItem("token");
@@ -22,6 +24,16 @@ function getUserRoleFromToken(): string | null {
     return null;
   }
 }
+
+const hasTicketForConcert = async (concertId: string, userId: string): Promise<boolean> => {
+  try {
+    const billets: Billet[] = await BilletService.getBilletsByUser(userId);
+    return billets.some((b) => b.concertId === concertId);
+  } catch (error) {
+    console.error("Erreur lors de la vérification des billets :", error);
+    return false; // en cas d'erreur, on laisse passer
+  }
+};
 
 const ConcertList = () => {
   const [concerts, setConcerts] = useState<Concert[]>([]);
@@ -62,12 +74,16 @@ const ConcertList = () => {
       alert("Vous devez être connecté pour acheter un billet !");
       return;
     }
-  
+    const alreadyHasTicket = await hasTicketForConcert(concertId, userId);
+    if (alreadyHasTicket) {
+      alert("Vous avez déjà un billet pour ce concert !");
+      return;
+    }
     try {
       const billet = await BilletService.acheterBillet(concertId, userId);
+      await axios.post(`http://localhost:3031/concert/decreaseAvailableSeats/${concertId}`);
       alert("Billet ajouté au panier, vous pouvez le payer dans la rubrique MES BILLETS!");
       navigate('/billets');
-      // Optionnel : rediriger ou mettre à jour l’état local
     } catch (error) {
       console.error("Erreur lors de l'achat du billet :", error);
       alert("Erreur lors de l'achat du billet");
@@ -131,19 +147,38 @@ const ConcertList = () => {
                   {new Date(concert.concertDate).toLocaleDateString()} - {concert.place}
                 </Typography>
                 <Typography color="text.secondary">
-                  {concert.totalSeats} places 
+                  {concert.availableSeats} places 
                 </Typography>
                 {isLoggedIn && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  sx={{ marginTop: 2, borderRadius: 2 }}
-                  onClick={() => handleBuyTicket(concert.id)}
-                >
-                  Acheter un billet 🎫
-                </Button>
+              <>
+                {concert.availableSeats === 0 ? (
+                  <>
+                    <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                    Malheureusement, il n'y a plus de tickets pour ce concert.
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      sx={{ marginTop: 1, borderRadius: 2 }}
+                      disabled
+                    >
+                      Complet 🎫
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    sx={{ marginTop: 2, borderRadius: 2 }}
+                    onClick={() => handleBuyTicket(concert.id)}
+                  >
+                    Acheter un billet 🎫
+                  </Button>
                 )}
+              </>
+            )}
               </CardContent>
             </Card>
           </Grid>
