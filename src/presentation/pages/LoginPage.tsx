@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
       }
   
       alert("Connexion réussie !");
-      navigate('/');
+      navigate('/concerts');
       
     } catch (error: any) {
       console.error("Erreur de connexion :", error.response?.data || error.message);

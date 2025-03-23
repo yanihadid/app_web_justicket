@@ -3,17 +3,21 @@ import { Container, TextField, Button, Typography, Box, InputAdornment } from '@
 import { AccountCircle, Email, Lock } from '@mui/icons-material';
 import axios from 'axios';
 import { AuthService } from '../../application/services/AuthService';
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [role, setRole] = useState("Admin");
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       const response = await AuthService.register(name, email, password);
       console.log('User registered successfully:', response.data);
       alert("Inscription réussie !");
+      navigate('/login');
     } catch (error) {
       console.error('Error during sign-up:', error);
       alert("Erreur lors de l'inscription.");

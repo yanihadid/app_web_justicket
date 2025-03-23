@@ -1,17 +1,22 @@
 [
-    {
-      "id": "b1",
-      "concertId": "1",
-      "acheteurId": "user123",
-      "estUtilise": false,
-      "image": "https://picsum.photos/300/200?random=1"
-    },
-    {
-      "id": "b2",
-      "concertId": "2",
-      "acheteurId": "user456",
-      "estUtilise": true,
-      "image": "https://picsum.photos/300/200?random=2"
-    }
-  ]
-  
+  {
+    "ticketId": "b1",
+    "concertId": "1",
+    "ownerId": "user123",
+    "expired": false,
+    "used": false,
+    "repayed": false,
+    "canceled": false,
+    "createdAt": "2025-03-23T10:00:00.000Z"
+  },
+  {
+    "ticketId": "b2",
+    "concertId": "2",
+    "ownerId": "user123",
+    "expired": false,
+    "used": true,
+    "repayed": false,
+    "canceled": false,
+    "createdAt": "2025-03-20T14:30:00.000Z"
+  }
+]

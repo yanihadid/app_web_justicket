@@ -7,11 +7,29 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { BilletService } from "../../application/services/BilletService";
+import { useNavigate } from "react-router-dom";
+
+function getUserRoleFromToken(): string | null {
+  const token = sessionStorage.getItem("token");
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    console.log("Rôle dans le token :", payload.role);
+    return payload.role || null;
+  } catch (e) {
+    console.error("Erreur de décodage du token :", e);
+    return null;
+  }
+}
 
 const ConcertList = () => {
   const [concerts, setConcerts] = useState<Concert[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const role = getUserRoleFromToken();
+  const isLoggedIn = !!sessionStorage.getItem("token");
 
   useEffect(() => {
     let isMounted = true;
@@ -47,7 +65,8 @@ const ConcertList = () => {
   
     try {
       const billet = await BilletService.acheterBillet(concertId, userId);
-      alert("Billet acheté avec succès !");
+      alert("Billet ajouté au panier, vous pouvez le payer dans la rubrique MES BILLETS!");
+      navigate('/billets');
       // Optionnel : rediriger ou mettre à jour l’état local
     } catch (error) {
       console.error("Erreur lors de l'achat du billet :", error);
@@ -61,9 +80,11 @@ const ConcertList = () => {
         <Typography variant="h4" gutterBottom textAlign="center">
           🎵 Liste des Concerts
         </Typography>
+        {role?.toLowerCase() === "admin" && (
         <Button variant="contained" component={Link} to="/concerts/new">
           Ajouter un concert
         </Button>
+        )}
       </Box>
 
       {loading && (
@@ -109,6 +130,7 @@ const ConcertList = () => {
                 <Typography color="text.secondary">
                   {new Date(concert.concertDate).toLocaleDateString()} - {concert.place}
                 </Typography>
+                {isLoggedIn && (
                 <Button
                   variant="contained"
                   color="primary"
@@ -118,6 +140,7 @@ const ConcertList = () => {
                 >
                   Acheter un billet 🎫
                 </Button>
+                )}
               </CardContent>
             </Card>
           </Grid>

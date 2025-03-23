@@ -9,7 +9,7 @@ const Navbar = () => {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     alert("Déconnexion réussie.");
-    navigate("/login");
+    navigate("/");
   };
   return (
     <AppBar position="absolute" color="transparent" elevation={0}>
@@ -19,7 +19,9 @@ const Navbar = () => {
         </Typography>
         <Button sx={{ color: "white" }} component={Link} to="/">Acceuil</Button>
         <Button sx={{ color: "white" }} component={Link} to="/concerts">Concerts</Button>
+        {isLoggedIn && (
         <Button sx={{ color: "white" }} component={Link} to="/billets">Mes Billets</Button>
+        )}
         {!isLoggedIn ? (
           <>
         <Button sx={{ color: "white" }} component={Link} to="/login">Se connecter</Button>

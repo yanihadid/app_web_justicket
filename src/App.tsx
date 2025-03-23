@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Box } from '@mui/material'; 
 import ConcertList from "./presentation/pages/ConcertList";
-// import MesBillets from "./presentation/pages/MesBillets";
+import MesBillets from "./presentation/pages/MesBillets";
 import Navbar from "./presentation/components/Navbar";
 import HomePage from "./presentation/pages/HomePage";
 import SignUp from "./presentation/pages/SignUpPage";
@@ -20,7 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/concerts" element={<div className="background"><ConcertList /></div>} />
-            {/* <Route path="/billets" element={<div className="background"><MesBillets /></div>} /> */}
+            <Route path="/billets" element={<div className="background"><MesBillets /></div>} />
             <Route path="/login" element={<div className="background"><Login /></div>} />
             <Route path="/signup" element={<div className="background"><SignUp /></div>} />
             <Route path="/concerts/new" element={<ConcertForm />} />
