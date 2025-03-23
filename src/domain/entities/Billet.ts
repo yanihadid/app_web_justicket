@@ -1,10 +1,13 @@
 export class Billet {
     constructor(
-      public id: string,
+      public ticketId: string,
       public concertId: string,
-      public acheteurId: string,
-      public estUtilise: boolean,
-      public image: string 
+      public ownerId: string,
+      public expired: boolean,
+      public used: boolean,
+      public repayed: boolean,
+      public canceled: boolean,
+      public createdAt: Date 
     ) {}
   }
   

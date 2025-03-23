@@ -6,6 +6,7 @@ import {
   CircularProgress, Container, Box 
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { BilletService } from "../../application/services/BilletService";
 
 const ConcertList = () => {
   const [concerts, setConcerts] = useState<Concert[]>([]);
@@ -37,6 +38,22 @@ const ConcertList = () => {
       isMounted = false;
     };
   }, []);
+  const handleBuyTicket = async (concertId: string) => {
+    const userId = sessionStorage.getItem("userId"); // ou sessionStorage si tu l’as déplacé
+    if (!userId) {
+      alert("Vous devez être connecté pour acheter un billet !");
+      return;
+    }
+  
+    try {
+      const billet = await BilletService.acheterBillet(concertId, userId);
+      alert("Billet acheté avec succès !");
+      // Optionnel : rediriger ou mettre à jour l’état local
+    } catch (error) {
+      console.error("Erreur lors de l'achat du billet :", error);
+      alert("Erreur lors de l'achat du billet");
+    }
+  };
 
   return (
     <Container sx={{ py: 4 }}>
@@ -97,6 +114,7 @@ const ConcertList = () => {
                   color="primary"
                   fullWidth
                   sx={{ marginTop: 2, borderRadius: 2 }}
+                  onClick={() => handleBuyTicket(concert.id)}
                 >
                   Acheter un billet 🎫
                 </Button>

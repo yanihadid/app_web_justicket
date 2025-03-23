@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!sessionStorage.getItem("token");
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     alert("Déconnexion réussie.");
     navigate("/login");
   };
