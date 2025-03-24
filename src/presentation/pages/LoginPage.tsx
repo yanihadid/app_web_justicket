@@ -49,25 +49,31 @@ const LoginPage: React.FC = () => {
   
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8 }}>
+    <Container maxWidth="sm" sx={{ mt: 1 }}>
+      <Typography 
+        variant="h4" 
+        align="center" 
+        gutterBottom 
+        sx={{ color: "white" }}
+      >
+        Connexion à votre compte
+      </Typography>
       <Box 
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          mt: 8,
+          mt: 2,
           p: 3,
           boxShadow: 3,
           borderRadius: 2,
           backgroundColor: 'white',
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Login
-        </Typography>
         <form onSubmit={handleLogin} style={{ width: '100%' }}>
           <TextField
             label="Email"
+            placeholder='nom@exemple.com'
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -83,7 +89,8 @@ const LoginPage: React.FC = () => {
             }}
           />
           <TextField
-            label="Password"
+            label="Mot de passe"
+            placeholder='mot de passe'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -105,7 +112,7 @@ const LoginPage: React.FC = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Login
+            Se connecter
           </Button>
         </form>
       </Box>

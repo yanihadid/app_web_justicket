@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Button, Container, Typography, TextField } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar"; 
 import { CssBaseline } from '@mui/material';
 
 const HomePage = () => {
@@ -13,7 +12,7 @@ const HomePage = () => {
       <CssBaseline />
       <Box 
         sx={{
-          backgroundImage: "url('/background.jpg')",  
+          backgroundImage: "url('../../../bg.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -32,7 +31,7 @@ const HomePage = () => {
       >
 
         {/* Contenu principal */}
-        <Container sx={{ mt: 10, textAlign: "center" }}>
+        <Container sx={{ mt: 0, textAlign: "center" }}>
           <motion.div 
             initial={{ opacity: 0, y: -20 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -41,6 +40,31 @@ const HomePage = () => {
             <Typography variant="h3" sx={{ fontWeight: "bold", mb: 2 }}>
               Let there be live
             </Typography>
+            <Typography 
+              variant="h6"
+              sx={{ 
+                maxWidth: "700px", 
+                margin: "auto", 
+                mb: 4, 
+                fontWeight: 500, 
+                textShadow: "1px 1px 3px rgba(0,0,0,0.7)" 
+              }}
+            >
+              De la scène aux coulisses, <strong>Justicket</strong> vous accompagne pour ne rien manquer de vos événements préférés.
+              Parcourez notre sélection de concerts exclusifs, réservez vos billets en quelques clics, et préparez-vous à vivre l’émotion du live.
+            </Typography>
+
+            <Typography 
+              variant="h6"
+              sx={{ 
+                maxWidth: "700px", 
+                margin: "auto", 
+                mb: 4, 
+                fontWeight: 500, 
+                textShadow: "1px 1px 3px rgba(0,0,0,0.7)" 
+              }}
+            ></Typography>
+
             <Typography variant="h5" sx={{ mb: 3 }}>
               Votre prochaine nuit inoubliable commence ici. Trouvez vos billets dès maintenant !
             </Typography>

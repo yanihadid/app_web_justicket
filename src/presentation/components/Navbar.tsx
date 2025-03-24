@@ -1,5 +1,4 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -12,11 +11,39 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <AppBar position="absolute" color="transparent" elevation={0}>
+    <AppBar position="static" elevation={0} 
+    sx={{
+      mb: 0,
+      backgroundColor: "#000", 
+      color: "white",
+    }} >
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold", color: "white" }}>
-          Justicket 🎟️
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start", 
+          mr: "auto" 
+        }}
+      >
+        <img
+          src="/logo_t.png"
+          alt="Justicket Logo"
+          style={{ height: 50, marginBottom: 4 }}
+        />
+        <Typography
+          sx={{
+            fontFamily: "'Fugaz One', cursive",
+            color: "white",
+            fontSize: "1.1rem",
+            letterSpacing: 1,
+          }}
+        >
+          Justicket
         </Typography>
+      </Box>
+
+
         <Button sx={{ color: "white" }} component={Link} to="/">Acceuil</Button>
         <Button sx={{ color: "white" }} component={Link} to="/concerts">Concerts</Button>
         {isLoggedIn && (

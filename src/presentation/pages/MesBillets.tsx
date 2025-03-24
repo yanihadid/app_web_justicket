@@ -63,14 +63,19 @@ const MesBillets = () => {
   }, []);
 
   const handleTransferBillet = (billetId: string) => {
-    alert(`Transfert du billet ${billetId} en cours...`);
+    alert(`Transfert du billet à venir...`);
   };
 
   return (
     <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom textAlign="center">
-        🎟️ Mes Billets
-      </Typography>
+      <Typography 
+              variant="h4" 
+              align="center" 
+              gutterBottom 
+              sx={{ color: "white" }}
+            >
+              Mes billets
+            </Typography>
 
       {loading && (
         <Box display="flex" justifyContent="center" mt={4}>
@@ -127,7 +132,7 @@ const MesBillets = () => {
                 />
                 <Button
                   variant="contained"
-                  color="success"
+                  color="primary"
                   fullWidth
                   sx={{ mt: 2, borderRadius: 2 }}
                   onClick={() => alert("Paiement à venir...")}

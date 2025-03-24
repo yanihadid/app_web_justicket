@@ -94,10 +94,17 @@ const ConcertList = () => {
     <Container sx={{ py: 4 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <Typography variant="h4" gutterBottom textAlign="center">
-          🎵 Liste des Concerts
+        
+        </Typography>
+        <Typography 
+          variant="h4" 
+          align="center" 
+          sx={{ color: "white" }}
+        >
+          Liste des Concerts
         </Typography>
         {role?.toLowerCase() === "admin" && (
-        <Button variant="contained" component={Link} to="/concerts/new">
+        <Button variant="contained" component={Link} to="/concerts/new" sx={{ mr: 4 }} >
           Ajouter un concert
         </Button>
         )}
@@ -154,7 +161,7 @@ const ConcertList = () => {
                 {concert.availableSeats === 0 ? (
                   <>
                     <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                    Malheureusement, il n'y a plus de tickets pour ce concert.
+                    Malheureusement, il n'y a plus de tickets
                     </Typography>
                     <Button
                       variant="contained"

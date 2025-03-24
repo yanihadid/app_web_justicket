@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, InputAdornment } from '@mui/material';
 import { AccountCircle, Email, Lock } from '@mui/icons-material';
-import axios from 'axios';
 import { AuthService } from '../../application/services/AuthService';
 import { useNavigate } from "react-router-dom";
 
@@ -25,25 +24,31 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8 }}>
+    <Container maxWidth="sm" sx={{ mt: 1 }}>
+      <Typography 
+        variant="h4" 
+        align="center" 
+        gutterBottom 
+        sx={{ color: "white" }}
+      >
+        Créez votre compte
+      </Typography>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          mt: 8,
+          mt: 2,
           p: 3,
           boxShadow: 3,
           borderRadius: 2,
           backgroundColor: 'white',
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Sign Up
-        </Typography>
         <form onSubmit={handleSignUp} style={{ width: '100%' }}>
           <TextField
-            label="Full Name"
+            label="Nom"
+            placeholder='Jhon Dupon'
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -60,6 +65,7 @@ const SignUpPage: React.FC = () => {
           />
           <TextField
             label="Email"
+            placeholder='nom@exemple.com'
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +81,8 @@ const SignUpPage: React.FC = () => {
             }}
           />
           <TextField
-            label="Password"
+            label="Mot de passe"
+            placeholder='minimum 8 caractères'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -91,7 +98,7 @@ const SignUpPage: React.FC = () => {
             }}
           />
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-            Sign Up
+           S'inscrire
           </Button>
         </form>
       </Box>
