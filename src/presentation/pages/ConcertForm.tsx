@@ -86,6 +86,17 @@ const ConcertForm = () => {
             onChange={(e) => setTotalSeats(Number(e.target.value))}
             margin="normal"
           />
+
+          <TextField
+            label="Image (URL)"
+            type="url"
+            fullWidth
+            required
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            margin="normal"
+          />
+
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 , mb : 3}}>
             Créer le concert
           </Button>

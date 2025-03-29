@@ -10,20 +10,8 @@ import { BilletService } from "../../application/services/BilletService";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { Billet } from "../../domain/entities/Billet";
+import { AuthService } from "../../application/services/AuthService";
 
-function getUserRoleFromToken(): string | null {
-  const token = sessionStorage.getItem("token");
-  if (!token) return null;
-
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    console.log("Rôle dans le token :", payload.role);
-    return payload.role || null;
-  } catch (e) {
-    console.error("Erreur de décodage du token :", e);
-    return null;
-  }
-}
 
 const hasTicketForConcert = async (concertId: string, userId: string): Promise<boolean> => {
   try {
@@ -40,7 +28,7 @@ const ConcertList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const role = getUserRoleFromToken();
+  const [role, setRole] = useState<string | null>(null);
   const isLoggedIn = !!sessionStorage.getItem("token");
 
   useEffect(() => {
@@ -61,6 +49,18 @@ const ConcertList = () => {
         }
       }
     };
+    const fetchUserRole = async () => {
+      try {
+        const userData = await AuthService.getProfile();
+        setRole(userData.role.name); // car le backend retourne `role: { name: "Admin" }`
+      } catch (error) {
+        console.error("Erreur lors de la récupération du profil :", error);
+      }
+    };
+  
+    if (isLoggedIn) {
+      fetchUserRole();
+    }
 
     fetchConcerts();
 

@@ -13,7 +13,7 @@ const SignUpPage: React.FC = () => {
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await AuthService.register(name, email, password);
+      const response = await AuthService.register(name, email, password, role);
       console.log('User registered successfully:', response.data);
       alert("Inscription réussie !");
       navigate('/login');
