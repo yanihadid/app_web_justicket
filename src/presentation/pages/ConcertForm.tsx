@@ -10,6 +10,8 @@ const ConcertForm = () => {
   const [concertDate, setConcertDate] = useState("");
   const [totalSeats, setTotalSeats] = useState(0);
   const [image, setImage] = useState("");
+  const [price, setPrice] = useState(0);
+
 
   const navigate = useNavigate();
 
@@ -22,7 +24,8 @@ const ConcertForm = () => {
         place,
         concert_date: new Date(concertDate),
         total_seats: totalSeats,
-        image, 
+        image,
+        price, 
       });
 
       alert("Concert ajouté avec succès !");
@@ -63,6 +66,16 @@ const ConcertForm = () => {
             required
             value={place}
             onChange={(e) => setPlace(e.target.value)}
+            margin="normal"
+          />
+
+          <TextField
+            label="Prix (en DZD)"
+            type="number"
+            fullWidth
+            required
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
             margin="normal"
           />
 

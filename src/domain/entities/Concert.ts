@@ -8,6 +8,7 @@ export class Concert {
     public totalSeats: number,
     public availableSeats: number,
     public canceled: boolean,
-    public createdAt: string
+    public createdAt: string,
+    public price: number
   ) {}
 }

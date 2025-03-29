@@ -11,6 +11,7 @@ export class ConcertService {
     concert_date: Date;
     total_seats: number;
     image: string;
+    price: number;
   }) {
     return await ConcertAPI.createConcert(data);
   }

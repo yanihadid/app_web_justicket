@@ -154,6 +154,9 @@ const ConcertList = () => {
                   {concert.title}
                 </Typography>
                 <Typography color="text.secondary">
+                  Prix : {concert.price} €
+                </Typography>
+                <Typography color="text.secondary">
                   {new Date(concert.concertDate).toLocaleDateString()} - {concert.place}
                 </Typography>
                 <Typography color="text.secondary">

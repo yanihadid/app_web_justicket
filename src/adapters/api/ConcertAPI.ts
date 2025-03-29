@@ -17,6 +17,7 @@ export class ConcertAPI {
     concert_date: Date;
     total_seats: number;
     image: string; 
+    price: number;
   }) {
     const randomSeed = Math.floor(Math.random() * 10000);
     const randomImage = `https://picsum.photos/seed/concert${randomSeed}/800/600`;
@@ -26,7 +27,8 @@ export class ConcertAPI {
       place: data.place,
       image: imageUrl,
       concertDate: data.concert_date.toISOString(),
-      totalSeats: data.total_seats.toString()
+      totalSeats: data.total_seats.toString(),
+      price: data.price.toString()
     });
   
     return await axios.post(`${API_BASE_URL}/concert/add?${params.toString()}`);
