@@ -143,8 +143,11 @@ const ConcertList = () => {
               <CardMedia
                 component="img"
                 height="200"
-                image={concert.image}
+                image={concert.image?.startsWith("http") ? concert.image : "https://picsum.photos/300/200"}
                 alt={concert.title}
+                onError={(e) => {
+                  e.currentTarget.src = "https://via.placeholder.com/300x200?text=Image+non+trouvée";
+                }}
               />
               <CardContent>
                 <Typography variant="h6" fontWeight="bold">
