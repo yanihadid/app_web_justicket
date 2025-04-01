@@ -38,7 +38,7 @@ const LoginPage: React.FC = () => {
         console.warn("Impossible d'extraire l'userId du token !");
       }
   
-      alert("Connexion réussie !");
+      alert("Bienvenu, vous êtes connecté !");
       navigate('/concerts');
       
     } catch (error: any) {

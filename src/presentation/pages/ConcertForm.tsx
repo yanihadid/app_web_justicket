@@ -7,6 +7,7 @@ import '../../App.tsx';
 const ConcertForm = () => {
   const [title, setTitle] = useState("");
   const [place, setPlace] = useState("");
+  const [price, setPrice] = useState("");
   const [concertDate, setConcertDate] = useState("");
   const [totalSeats, setTotalSeats] = useState(0);
   const [image, setImage] = useState("");
@@ -15,23 +16,34 @@ const ConcertForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const selectedDate = new Date(concertDate);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (selectedDate < today) {
+    alert("La date du concert ne peut pas être antérieure à aujourd'hui !");
+    return;
+  }
 
     try {
       await ConcertService.createConcert({
         title,
         place,
+        price: parseFloat(price), 
         concert_date: new Date(concertDate),
         total_seats: totalSeats,
         image, 
       });
 
-      alert("Concert ajouté avec succès !");
+      alert("Le concert est ajouté avec succès, vous pouvez le voir dans la liste !");
       navigate("/concerts");
     } catch (error) {
       console.error("Erreur lors de l'ajout du concert :", error);
-      alert("Erreur lors de la création du concert.");
+      alert("Veuillez introduire tous les champs, ou bien le concert existe déjà.");
     }
   };
+
+
+  
 
   return (
     <Box className="background">
@@ -47,7 +59,7 @@ const ConcertForm = () => {
   borderRadius: 4,
   boxShadow: 5,
   backdropFilter: "blur(10px)", }}>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }} autoComplete="off">
           <TextField
             label="Titre"
             fullWidth
@@ -78,6 +90,17 @@ const ConcertForm = () => {
           />
 
           <TextField
+            label="Prix (€)"
+            type="number"
+            fullWidth
+            required
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            margin="normal"
+            inputProps={{ step: "0.01", min: "0" }} // optionnel : deux décimales
+          />
+
+          <TextField
             label="Nombre total de places"
             type="number"
             fullWidth
@@ -86,9 +109,21 @@ const ConcertForm = () => {
             onChange={(e) => setTotalSeats(Number(e.target.value))}
             margin="normal"
           />
+
+          <TextField
+            label="URL de l'image"
+            type="url"
+            fullWidth
+            required
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            margin="normal"
+          />
+
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 , mb : 3}}>
             Créer le concert
-          </Button>
+          </Button>          
+
         </Box>
       </Container>
     </Box>

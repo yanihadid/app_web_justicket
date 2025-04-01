@@ -14,26 +14,35 @@ export class ConcertAPI {
   static async createConcert(data: {
     title: string;
     place: string;
+    price: number;
     concert_date: Date;
     total_seats: number;
-    image: string; 
+    image: string;
   }) {
     const randomSeed = Math.floor(Math.random() * 10000);
     const randomImage = `https://picsum.photos/seed/concert${randomSeed}/800/600`;
     const imageUrl = data.image || randomImage;
+  
     const params = new URLSearchParams({
       title: data.title,
       place: data.place,
       image: imageUrl,
       concertDate: data.concert_date.toISOString(),
-      totalSeats: data.total_seats.toString()
+      totalSeats: data.total_seats.toString(),
+      price: data.price.toString(), // ✅ ici on ajoute price à l’URL
     });
   
     return await axios.post(`${API_BASE_URL}/concert/add?${params.toString()}`);
   }
+  
   static async getConcertById(id: string): Promise<Concert> {
     const response = await axios.get(`${API_BASE_URL}/concert/${id}`);
     return response.data;
   }
+
+  static async deleteConcert(id: string): Promise<void> {
+    return await axios.delete(`${API_BASE_URL}/concert/${id}`);
+  }
+  
   
 }

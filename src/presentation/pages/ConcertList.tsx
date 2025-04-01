@@ -68,6 +68,11 @@ const ConcertList = () => {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    ConcertService.getAllConcerts().then(setConcerts);
+  }, []);
+
   const handleBuyTicket = async (concertId: string) => {
     const userId = sessionStorage.getItem("userId"); // ou sessionStorage si tu l’as déplacé
     if (!userId) {
@@ -89,6 +94,21 @@ const ConcertList = () => {
       alert("Erreur lors de l'achat du billet");
     }
   };
+
+const handleDelete = async (id: string) => {
+  if (window.confirm("Supprimer ce concert ?")) {
+    try {
+      await ConcertService.deleteConcert(id);
+      // Met à jour la liste sans le concert supprimé :
+      setConcerts(prevConcerts => prevConcerts.filter(c => c.id !== id));
+      alert("Concert supprimé !");
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      alert("Erreur lors de la suppression.");
+    }
+  }
+};
+
 
   return (
     <Container sx={{ py: 4 }}>
@@ -156,6 +176,9 @@ const ConcertList = () => {
                 <Typography color="text.secondary">
                   {concert.availableSeats} places 
                 </Typography>
+                <Typography color="text.secondary">
+                  {concert.price} €
+                </Typography>
                 {isLoggedIn && (
               <>
                 {concert.availableSeats === 0 ? (
@@ -186,6 +209,17 @@ const ConcertList = () => {
                 )}
               </>
             )}
+              {role === "Admin" && (
+                <Button
+                id = "btn_supp"
+                  variant="outlined"
+                  color="error"
+                  onClick={() => handleDelete(concert.id)}
+                >
+                  Supprimer
+                </Button>
+              )}
+
               </CardContent>
             </Card>
           </Grid>

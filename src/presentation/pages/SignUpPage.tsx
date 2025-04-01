@@ -10,16 +10,26 @@ const SignUpPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [role, setRole] = useState("Admin");
+  const isPasswordValid = (pwd: string): boolean => {
+    const minLength = pwd.length >= 6;
+    const hasLetter = /[a-zA-Z]/.test(pwd);
+    const hasNumber = /\d/.test(pwd);
+    return minLength && hasLetter && hasNumber;
+  };
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!isPasswordValid(password)) {
+      alert("Le mot de passe doit contenir au moins 6 caractères, dont au moins une lettre et un chiffre.");
+      return;
+    }    
     try {
       const response = await AuthService.register(name, email, password);
       console.log('User registered successfully:', response.data);
-      alert("Inscription réussie !");
+      alert("Votre inscription est réussie, vous pouvez vous connecté !");
       navigate('/login');
     } catch (error) {
       console.error('Error during sign-up:', error);
-      alert("Erreur lors de l'inscription.");
+      alert("Veuillez remplir tous les champs, ou bien votre compte est déjà présent.");
     }
   };
 
@@ -45,7 +55,7 @@ const SignUpPage: React.FC = () => {
           backgroundColor: 'white',
         }}
       >
-        <form onSubmit={handleSignUp} style={{ width: '100%' }}>
+        <form onSubmit={handleSignUp} style={{ width: '100%' }} autoComplete='off'>
           <TextField
             label="Nom"
             placeholder='Jhon Dupon'

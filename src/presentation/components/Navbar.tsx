@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    alert("Déconnexion réussie.");
+    alert("Merci pour votre vesite, à plus tard !");
     navigate("/");
   };
   return (
